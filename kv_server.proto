@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package kv_server;
+
+/// 客户端命令集合
+message CommandRequest {
+    oneof request_data {
+        Hget hget = 1;
+        Hgetall hgetall = 2;
+        Hmget hmget = 3;
+        Hset hset = 4;
+        Hmset hmset = 5;
+        Hdel hdel = 6;
+        Hmdel hmdel = 7;
+        Hexist hexist = 8;
+        Hmexist hmexist = 9;
+    }
+}
+
+// 单条kv数据
+message Kvpair {
+    string key = 1;
+    Value value = 2;
+}
+
+// value 的几种类型
+message Value {
+    oneof value {
+        string string = 1;
+        bytes binary = 2;
+        int64 integer = 3;
+        double float = 4;
+        bool bool = 5;
+    }
+}
+
+// 根据单个key 获取某个value
+message Hget {
+    string table = 1;
+    string key = 2;
+}
+
+// 获取所有的kv数据
+message Hgetall {
+    string table = 1;
+}
+
+// 通过多个key 获取多个对应的value
+message Hmget {
+    string table = 1;
+    repeated string keys = 2;
+}
+
+// 设置kv
+message Hset {
+    string table = 1;
+    Kvpair pair = 2;
+}
+
+// 设置多条kv
+message Hmset {
+    string table = 1;
+    repeated Kvpair pairs = 2;
+}
+
+// 删除对应的key 并返回他的value
+message Hdel {
+    string table = 1;
+    string key = 2;
+}
+
+// 删除多个key 并返回他的value
+message Hmdel {
+    string table = 1;
+    repeated string keys = 2;
+}
+
+// 查看该key是否存在
+message Hexist {
+    string table = 1;
+    string key = 2;
+}
+
+// 查询多个key是否存在
+message Hmexist {
+    string table = 1;
+    repeated string keys = 2;
+}

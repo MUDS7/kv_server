@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kv_server;
 
-/// 客户端命令集合
+// 客户端命令集合
 message CommandRequest {
     oneof request_data {
         Hget hget = 1;
@@ -15,6 +15,18 @@ message CommandRequest {
         Hexist hexist = 8;
         Hmexist hmexist = 9;
     }
+}
+
+// 服务器响应
+message CommandResponse {
+    // 状态码
+    uint32 status = 1;
+    // 若访问失败，返回错误信息
+    string message = 2;
+    // 返回成功的数据
+    repeated Value values = 3;
+    // 返回成功的 kv数据
+    repeated Kvpair kvpairs = 4;
 }
 
 // 单条kv数据

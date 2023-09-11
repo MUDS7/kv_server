@@ -1,9 +1,12 @@
-/// / 客户端命令集合
+/// 客户端命令集合
 #[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommandRequest {
-    #[prost(oneof = "command_request::RequestData", tags = "1, 2, 3, 4, 5, 6, 7, 8, 9")]
+    #[prost(
+        oneof = "command_request::RequestData",
+        tags = "1, 2, 3, 4, 5, 6, 7, 8, 9"
+    )]
     pub request_data: ::core::option::Option<command_request::RequestData>,
 }
 /// Nested message and enum types in `CommandRequest`.
@@ -31,6 +34,24 @@ pub mod command_request {
         #[prost(message, tag = "9")]
         Hmexist(super::Hmexist),
     }
+}
+/// 服务器响应
+#[derive(PartialOrd)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CommandResponse {
+    /// 状态码
+    #[prost(uint32, tag = "1")]
+    pub status: u32,
+    /// 若访问失败，返回错误信息
+    #[prost(string, tag = "2")]
+    pub message: ::prost::alloc::string::String,
+    /// 返回成功的数据
+    #[prost(message, repeated, tag = "3")]
+    pub values: ::prost::alloc::vec::Vec<Value>,
+    /// 返回成功的 kv数据
+    #[prost(message, repeated, tag = "4")]
+    pub kvpairs: ::prost::alloc::vec::Vec<Kvpair>,
 }
 /// 单条kv数据
 #[derive(PartialOrd)]

@@ -1,7 +1,9 @@
 use crate::kv_entity::kv_server::command_request::RequestData;
-use crate::kv_entity::kv_server::{value, CommandRequest, Hset, Kvpair, Value};
+use crate::kv_entity::kv_server::{value, CommandRequest, Hset, Kvpair};
 
 pub mod kv_server;
+
+pub use kv_server::*;
 
 impl Kvpair {
     /// 创建一个新的 kv 键值对

@@ -1,6 +1,7 @@
-use crate::kv_server::value::Value;
+pub mod memory;
+
 use crate::kv_server::Kvpair;
-use crate::KvError;
+use crate::{KvError, Value};
 
 /// kv_server的存储和查询操作
 pub trait Storage {

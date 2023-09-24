@@ -15,19 +15,6 @@ impl Kvpair {
     }
 }
 
-impl CommandRequest {
-    /// hset 命令
-    // 尝试使用泛型来限定 table 和 key
-    pub fn new_hset(table: impl Into<String>, key: impl Into<String>, value: Value) -> Self {
-        Self {
-            request_data: Some(RequestData::Hset(Hset {
-                table: table.into(),
-                pair: Some(Kvpair::new(key, value)),
-            })),
-        }
-    }
-}
-
 impl From<String> for Value {
     fn from(value: String) -> Self {
         Self {

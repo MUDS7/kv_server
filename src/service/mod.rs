@@ -51,6 +51,7 @@ pub fn dispatch(cmd: CommandRequest, store: &impl Storage) -> CommandResponse {
         Some(RequestData::Hget(para)) => para.execute(store),
         Some(RequestData::Hgetall(para)) => para.execute(store),
         Some(RequestData::Hset(para)) => para.execute(store),
+        Some(RequestData::Hstop(para)) => para.execute(store),
         _ => KvError::InvalidCommand("非法请求!".to_string()).into(),
     }
 }

@@ -1,6 +1,6 @@
 use crate::kv_server::Hset;
 use crate::storage::Storage;
-use crate::{CommandResponse, CommandService, Hget, Hgetall, KvError, Value};
+use crate::{CommandResponse, CommandService, Hget, Hgetall, Hstop, KvError, Value};
 
 impl CommandService for Hget {
     fn execute(self, store: &impl Storage) -> CommandResponse {
@@ -31,5 +31,13 @@ impl CommandService for Hset {
             },
             None => Value::default().into(),
         }
+    }
+}
+
+impl CommandService for Hstop {
+    fn execute(self, store: &impl Storage) -> CommandResponse {
+        // todo 验证权限是否具备stop权限
+        dbg!("stop");
+        std::process::exit(0);
     }
 }

@@ -17,4 +17,6 @@ pub trait Storage {
     fn get_all(&self, table: &str) -> Result<Vec<Kvpair>, KvError>;
     // 返回table中所有键值对的迭代器
     fn get_all_iter(&self, table: &str) -> Result<Box<dyn Iterator<Item = Kvpair>>, KvError>;
+    // 关闭程序
+    fn stop(&self) -> Result<bool, KvError>;
 }

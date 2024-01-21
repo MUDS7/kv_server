@@ -5,7 +5,7 @@
 pub struct CommandRequest {
     #[prost(
         oneof = "command_request::RequestData",
-        tags = "1, 2, 3, 4, 5, 6, 7, 8, 9"
+        tags = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"
     )]
     pub request_data: ::core::option::Option<command_request::RequestData>,
 }
@@ -33,6 +33,8 @@ pub mod command_request {
         Hexist(super::Hexist),
         #[prost(message, tag = "9")]
         Hmexist(super::Hmexist),
+        #[prost(message, tag = "10")]
+        Hstop(super::Hstop),
     }
 }
 /// 服务器响应
@@ -176,4 +178,12 @@ pub struct Hmexist {
     pub table: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "2")]
     pub keys: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// 关闭进程
+#[derive(PartialOrd)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Hstop {
+    #[prost(string, tag = "1")]
+    pub key: ::prost::alloc::string::String,
 }

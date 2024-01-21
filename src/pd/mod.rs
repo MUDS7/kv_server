@@ -1,7 +1,8 @@
 use crate::command_request::RequestData;
 use crate::kv_server::{CommandRequest, Hset, Kvpair};
-use crate::{CommandResponse, Hget, Hgetall, KvError, Value};
+use crate::{CommandResponse, Hget, Hgetall, Hstop, KvError, Value};
 use http::StatusCode;
+use prost::Message;
 
 impl CommandRequest {
     // 包装 hget 的 new方法
@@ -30,6 +31,14 @@ impl CommandRequest {
             })),
         }
     }
+
+    pub fn stop() -> Self {
+        Self {
+            request_data: Some(RequestData::Hstop(Hstop {
+                key: "stop".to_string(),
+            })),
+        }
+    }
 }
 
 /// 将 Value 转为 CommandResponse
@@ -38,6 +47,16 @@ impl From<Value> for CommandResponse {
         Self {
             status: StatusCode::OK.as_u16() as _,
             values: vec![value],
+            ..Default::default()
+        }
+    }
+}
+
+impl From<String> for CommandResponse {
+    fn from(value: String) -> Self {
+        Self {
+            status: StatusCode::OK.as_u16() as u32,
+            message: value,
             ..Default::default()
         }
     }

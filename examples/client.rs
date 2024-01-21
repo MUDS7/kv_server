@@ -27,5 +27,20 @@ async fn main() -> anyhow::Result<()> {
             }
         }
     }
+    // 使用命令
+    let command = CommandRequest::stop();
+    // 发送命令
+    client.send(command).await?;
+    if let Some(response) = client.next().await {
+        // 处理请求
+        match response {
+            Ok(data) => {
+                dbg!(&data);
+            }
+            Err(e) => {
+                dbg!(format!("{}", e).as_str());
+            }
+        }
+    }
     Ok(())
 }

@@ -14,6 +14,7 @@ message CommandRequest {
         Hmdel hmdel = 7;
         Hexist hexist = 8;
         Hmexist hmexist = 9;
+        Hstop hstop = 10;
     }
 }
 
@@ -97,4 +98,9 @@ message Hexist {
 message Hmexist {
     string table = 1;
     repeated string keys = 2;
+}
+
+// 关闭进程
+message Hstop {
+    string key = 1;
 }

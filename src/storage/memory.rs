@@ -63,4 +63,9 @@ impl Storage for MemTable {
         // table.value().iter()
         todo!()
     }
+
+    fn stop(&self) -> Result<bool, KvError> {
+        // todo!() 将数据缓存到本地
+        std::process::exit(0);
+    }
 }
